@@ -1,0 +1,370 @@
+\documentclass[10pt,a4paper]{scrartcl}
+% scrartcl.cls, scrreprt.cls, scrbook.cls ??? created from european point of view
+% KOMA-script package required for these layouts
+\usepackage[top=3.5cm, bottom=3.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage[english]{babel}
+\usepackage{palatino}
+\usepackage{relsize}
+\usepackage{multicol}
+\usepackage{blindtext}
+\usepackage{setspace}
+\usepackage[absolute]{textpos} % places boxes at an absolute position - used for placing the logo's on the cover page
+\setlength{\TPHorizModule}{1mm} % length of 1 unit horizontally
+\setlength{\TPVertModule}{\TPHorizModule} % length of 1 unit vertically
+\textblockorigin{0mm}{0mm} % position from the top left from where positions are calculated
+\setlength{\parindent}{0pt}
+%\usepackage{a4wide} % Iets meer tekst op een bladzijde
+% the a4wide should not b used anymore. Use a4paper in the documentclass
+\usepackage{amsmath} % Uitgebreide wiskundige mogelijkheden
+\usepackage{amssymb} % Voor speciale symbolen zoals de verzameling Z, R...
+\usepackage{makeidx} % Om een index te maken
+\usepackage{url} % Om url's te verwerken
+\usepackage{graphicx} % Om figuren te kunnen verwerken
+\usepackage[small,bf,hang]{caption} % Om de captions wat te verbeteren
+\usepackage{xspace} % Magische spaties na een commando
+\usepackage[latin1]{inputenc} % Om niet ascii karakters rechtstreeks te kunnen typen
+\usepackage{float} % Om nieuwe float environments aan te maken. Ook optie H!
+\usepackage{flafter} % Opdat floats niet zouden voorsteken
+\usepackage{listings} % Voor het weergeven van letterlijke text en codelistings
+%\usepackage[round]{natbib} % Voor auteur-jaar citaties.
+\usepackage[nottoc]{tocbibind} % Bibliografie en inhoudsopgave in ToC; zie tocbibind.dvi
+\usepackage{eurosym} % om het euro symbool te krijgen
+\usepackage{textcomp} % Voor onder andere graden celsius
+\usepackage{fancyhdr} % Voor fancy headers en footers
+\usepackage[Gray,squaren,thinqspace,thinspace]{SIunits} % Om elegant eenheden zetten
+% \usepackage{setspace} % I use the command \baselinestretch to modify line spacings
+% Volgend package is niet echt nodig. Het laat echter toe om gemakkelijk elektronisch
+% te navigeren in je pdf-document. Deze package moet altijd als laatste ingeladen worden.
+\usepackage[a4paper,plainpages=false]{hyperref} % Om hyperlinks te hebben in het pdfdocument.
+\usepackage{wrapfig} %to wrap figure in text \begin{wrapfigure}{r}{0.5\textwidth} \begin{center} \includegraphics[...]{...} \end{center} \caption{..} \end{wrapfigure}
+\usepackage{sidecap} %to use side captions on figures \begin{SCfigure} \centering \includegraphics[...]{...} \caption{..} \end{SCfigure}
+\usepackage{rotate} %rotate stuff \begin{tabular*}{8cm}
+%\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{rotating}
+\usepackage{float}
+\usepackage[font=footnotesize]{subfig} %to use /subtable and /subfigure
+\usepackage{color} %to enable the use of color
+\usepackage[table]{xcolor}
+\usepackage{ifthen}
+\usepackage{pdfpages}
+\definecolor{orange}{RGB}{255,127,0}
+\definecolor{silver}{RGB}{192,192,192}
+\definecolor{grey}{RGB}{84,84,84}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{white}{RGB}{255,255,255}
+\definecolor{MidnightBlue}{RGB}{25,25,112}
+\definecolor{darkslategrey}{RGB}{47,79,79}
+\definecolor{darkgreen}{RGB}{47,79,47}
+\definecolor{DarkOliveGreen}{RGB}{85,107,47}
+\definecolor{VUBlichtgroen}{RGB}{171,178,2}
+\definecolor{VUBdonkergroen}{RGB}{95,96,74}
+\definecolor{VUBgrijs}{RGB}{135,136,127}
+\definecolor{VUBsteunkleur}{RGB}{127,115,88}
+\definecolor{VUBWE}{RGB}{80,120,17}
+\definecolor{VUBPE}{RGB}{1,142,159}
+\definecolor{red}{RGB}{255,0,0}
+\definecolor{green}{RGB}{0,255,0}
+\definecolor{blue}{RGB}{0,0,255}
+\definecolor{red}{RGB}{255,0,0}
+\definecolor{darkred}{RGB}{139,0,0}
+\definecolor{codebg}{rgb}{0.9,0.9,0.9}
+\lstset{
+language=Lisp,
+backgroundcolor=\color{codebg},
+keywordstyle=\itshape\color{darkred},
+numbers=left,
+xleftmargin=9pt,
+framexleftmargin=9pt,
+basicstyle=\small ,
+numberstyle=\scriptsize\color{gray},
+frame=single,
+framerule=0pt,
+captionpos=b
+breaklines=true,,
+numbersep=1pt,
+tabsize=2
+}
+% De splitsingsuitzonderingen
+\hyphenation{module modules}
+%\bibpunct{(}{)}{;}{y}{,}{,} % Auteur-jaar citaties -- zie natbib.dvi voor meer uitleg; niet echt nodig
+% Het bibliografisch opmaak bestand.
+% ZORG ERVOOR DAT bibliodutch.bst ZICH IN JE WERKDIRECTORY BEVINDT!!!
+% \bibliographystyle{bibliodutch}
+%\setlength{\parindent}{0cm} % Inspringen van eerste lijn van paragrafen is niet gewenst.
+% never use absolute sizes to modify parintents
+%\renewcommand{\baselinestretch}{1.2} % De interlinie afstand wat vergroten.
+\graphicspath{{afbeeldingen/}} % De plaats waar latex zijn figuren gaat halen.
+\makeindex % Om een index te genereren.
+% De headers die verschijnen bovenaan de bladzijden, herdefinieren:
+% deze headers mogen pas op de 2de pagina beginnen!
+\pagestyle{fancy} % Om aan te geven welke bladzijde stijl we gebruiken.
+\fancyhf{} % Resetten van al de fancy settings.
+\renewcommand{\headrulewidth}{0.0pt} % Geen lijn onder de header. Zet dit op 0.4pt voor een mooie lijn.
+%\fancyhf[HL]{\nouppercase{\textit{\leftmark}}} % Links in de header zetten we de leftmark,
+%\fancyhead[HR]{\thepage} % Rechts in de header het paginanummer.
+% Activeer de volgende lijn en desactiveer de vorige om paginanummers onderaan gecentreerd te krijgen.
+%\fancyhf[HL]{\nouppercase{\textit{\leftmark}}}
+%\fancyhf[HR]{\nouppercase{\textit{\rightmark}}}
+\cfoot{\thepage} % Paginanummers onderaan gecentreerd.
+\lfoot{Roeland Matthijssens}
+\rfoot{POOL: Paper}
+\renewcommand{\footrulewidth}{0.4pt} % Geen lijn onder de header. Zet dit op 0.4pt voor een mooie lijn.
+\begin{document}
+\begin{textblock}{75}[0,0](15,12)
+\textblocklabel{vub logo}
+\includegraphics[width=75.5mm]{VUB_logo_kleur.png}
+\end{textblock}
+\begin{center}
+\begin{spacing}{1.5}
+\begin{large}
+\end{large}
+\begin{LARGE}
+POOL: Python 2.3 style Method Resolution Order in the Scheme macro implementation
+\end{LARGE}
+\\
+\begin{large}
+January 16, 2011
+\end{large}
+\\
+\begin{large}
+Roeland Matthijssens, Rolno: 88208, roeland.matthijssens@vub.ac.be
+\end{large}
+\\
+\begin{normalsize}
+$ 1^{st}$ Year Master of Science in Applied Sciences and Engineering: Computer Science
+\end{normalsize}
+\end{spacing}
+\end{center}
+\begingroup
+\leftskip4em
+\rightskip\leftskip
+\paragraph{Abstract}
+In our course we have seen an implementation of an OO language in scheme using macros. We were tasked to extend this base implementation with multiple inheritance. We have chosen to do this the way python has been doing multiple inheritance since version 2.3. This method is called ``C3 Method Resolution Order"
+\par
+\endgroup
+\begin{multicols}{2}
+\section*{The General Idea}
+Normaly when we subclass a class we keep a pointer to its superclass. When we don't need a reimplementation of some function in the subclass, we can just not define the function, and expect the superclass to handle the call when we receive it. This is why we keep a pointer to the superclass. When we call a function of a class we look through its the method dictionary to find the method. If it is implemented we can just call it. If its isn't implemented we just call the same function of the superclass (keeping the context in mind) and let the superclass handle it from there. Eventually we will either bump into a superclass that does implement the function, in which case it is executed, or we bump into the root class, in which case an error is raised.\\
+Deligating function calls to the superclass makes sence when we have a clear way of knowing who we want to send the supercall to. This is trivial in a single inheritance setting. But multiple inheritance breaks this easy principal, because the interpretor has no intelligent way of choosing between all the possible superclasses.\\
+So, to help the interpretor, we define an algorithm that, given an inheritance tree, clearly defines the order of the superclasses. This will allow the interpretor to choose between who to deligate the message to. We achieve this ordering by flattening the inheritance tree, using the C3 algorithm.\\
+\section*{What To Do With This List}
+When we want to define a class, instead of providing just one superclass we give a list of classes we want to inherit from. Because these classes also have a possibly long list of superclasses, we can construct complex inheritance trees. Our goal is to flatten this entire tree into a single ordered list.\\
+This list defines the order that the class must follow when he wants to deligate a call to one of its superclasses. It just asks the first class in the list to answer to the call. If this class implements the method, the method resolves. If he doesn't implement the method either, the class that initialy received the message then sends the method to the second class in the list. This process repeats, until we find some class that implements the message, or we bump into the root class.\\
+There are two things to note here. First the ordered list contains not only the classes we provide the definition with, but all the classes in the entire inheritance hierarchy. The second thing to note, is that we will always eventualy bump into the root class, this is a result of including the entire inheritance tree into the flattened list. Because at least some class is a direct subclass of the root, the root will also be included in the tree, and therefor also in the flattened list.\\
+This has the added bonus that we can keep the original way that the system threw the 'method not found' error. Since we will eventually as a last resort ask the rootclass to answer to the call, which will raise the exeption.\\
+\section*{The implementation}
+Instead of doing the normal recursive supercalls when we can't find the method in the superclass, we need to redefine this so that the lookup for the method in the superclass returns some kind of indication of failure, that represents the absence of the method in the superclass' dictionary. When we receive this failure, we know that we have to send the message to the second superclass. 
+\begin{lstlisting}
+(define-macro MYCLASS
+ ...
+ ((<<SINGLETONEVAL>>)
+  (let*
+    ((context (car args))
+     (msg (cadr args))
+     (args (caddr args))
+     (entry (<<METHODS>> 'get msg)))
+    (if entry
+     (apply entry (cons context args))
+     '<<METHODNOTFOUND>>
+     )))
+ ...)))))))
+\end{lstlisting}
+
+This also means that we will have to do this in the root class, which is trivial.
+\begin{lstlisting}
+(define Root
+ (lambda (msg . args)
+  ...
+  ((<<SINGLETONEVAL>>)
+   (let*
+    ((msg (cadr args)))
+    (error "method not found " msg)))
+  ...))
+\end{lstlisting}
+
+Instead of calculating the flattened inheritance list from scratch every time we define a new class, we make this list of superclass available in each class. This is the same in languages like python, where you can ask the list of supers at runtime. The advantage of this is that we don't have to recursively generate the flattened list for our parents when we create the list for our new class. We can just take the lists of our parents, and use them to create a new list.
+\begin{lstlisting}
+(define-macro MYCLASS
+ (lambda (superlist . defs)
+  `(letrec
+    ((...
+     (<<CLASS>>
+      (lambda (msg . args)
+       (case msg
+        ...
+        ((<<GETSUPERS>>) <<SUPERS>>)
+        ...))))
+  ...)))
+\end{lstlisting}
+
+For bootstrapping we need our rootclass to return an empty list.
+\begin{lstlisting}
+(define Root
+ (lambda (msg . args)
+  (case msg
+   ...
+   ((<<GETSUPERS>>) (mlist))
+   ...)))
+\end{lstlisting}
+
+Now when we try to evaluate a method in a class, instead of just evaluating, and sending the message to the superclass we try to evaluate it localy. If this fails, we start to loop over our superlist, and the first super that evaluates the method returns the respons.
+\begin{lstlisting}
+...
+((<<EVAL>>)
+ (let*
+     ((context (car args))
+      (msg (cadr args))
+      (args (caddr args))
+      (entry (<<METHODS>> 'get msg)))
+   (if entry
+       (apply entry (cons context args))
+       (evalWithFirstSuper <<SUPERS>>
+                       context msg args)
+       )))
+...
+\end{lstlisting}
+\textit{evalWithFirstSuper} Is basicaly a foldl over the superlist, where we return the first successfull execution.
+\begin{lstlisting}
+(define (evalWithFirstSuper superList
+         context msg args)
+ (if (empty? superList)
+  (error "method not found") 
+  (let ((result ((mcar superList)
+                 '<<SINGLETONEVAL>>
+                 context msg args)))
+   (if (equal? result
+              '<<METHODNOTFOUND>>)
+    (evalWithFirstSuper
+        (mcdr superList)
+        context msg args)
+    result))))
+\end{lstlisting}
+This makes sure that the previously established inheritance order is followed when we call a method. Note that the exeption of an empty list is redundant, because this is handled by the root class.\\
+Having this mechanism we can create a class, and pass it some superclasses as arguments.
+\begin{lstlisting}
+(define A (MYCLASS (mlist Y X)))
+\end{lstlisting}
+The superlist of our newly created class looks like this:
+\begin{lstlisting}
+(define-macro MYCLASS
+...
+((<<SUPERS>>
+ (flattenSuperList ,superlist))
+...
+\end{lstlisting}
+where flattenSuperList calls the actual C3 algorithm, named \textit{merge} in out application. This will result in a single flattened list, which will be the inheritance order for the class.
+\begin{lstlisting}
+(define (flattenSuperList lst)
+  (define result (mlist))
+  (define (loop lst)
+   (if (not (empty? lst))
+    (begin
+     (set! result 
+      (mappend result
+       (mlist
+        (mcons
+         (mcar lst)
+         ((mcar lst) '<<GETSUPERS>>))
+       )))
+     (loop (mcdr lst)))))
+  (loop lst)
+  (merge (mappend result (mlist lst))))
+\end{lstlisting}
+The implementation of the merge function can be found in section \textit{The Implementation Of C3}.
+This concludes the method lookup for multiple inheritance. However this is not all that needed to be done. Variable lookup is also an issue when dealing with multiple inheritance. But we just established a proper order for inheritance, this means that we can take advantage of this when we are instantiating our class.\\
+Instead of just copying the variable dictionary from the superclass, we loop over all our supers, and in turn let them extend an empty variable dictionary. When one of the parents would put a dupplicate entry in this table, we just ignore it because the class that filled in that variable earlier has a higher preference, since it came first in the inheritance list.
+
+\begin{lstlisting}[escapeinside=||]
+(define-macro MYCLASS
+ ...
+ (<<VARS>> (mergeTables
+  (mmap (|$\lambda$|(super)
+                    (super '<<COPY>>))
+  <<SUPERS>>)))
+ ...)
+\end{lstlisting}
+The function \textit{mergeTables} takes a list of tables, and produces one table, filled with all variables of all the tables, taking their preference into account. The function looks like this.
+\begin{lstlisting}[escapeinside=||]
+(define (mergeTables tableList)
+ (let ((result (<<TABLE>>)))
+  (define (loop tableList)
+   (if (not (empty? tableList))
+    (begin (insertAll (mcar tableList))
+           (loop (mcdr tableList)))))
+  (define (insertAll table)
+   (mmap
+    (|$\lambda$|(entry)
+     (let* ((key (mcar entry))
+            (value (mcdr entry))
+            (present (result 'get key)))
+       (if present
+           'skip
+           (result 'put key value))))
+    (table '<<CONTENT>>)))
+  (loop tableList)
+  result))
+\end{lstlisting}
+Because we want to declare variables in subclasses of classes that also declare this variable, we also need to redefine the \textit{VAR}-macro
+\begin{lstlisting}
+(define-macro VAR
+ (lambda (name value)
+  `(if (<<VARS>> 'get ',name)
+    (<<VARS>> 'replace ',name ',value)
+    (<<VARS>> 'put ',name ',value))))
+\end{lstlisting}
+this means that a redefinition of a variable just resets the variable. Instead of raising an exception. This has the added effect that we can define the same variable twice in one class definition, which might possibly lead to subtle bugs. This problem however falls out of the scope of this exercise.
+\end{multicols}
+\pagebreak
+\section*{The Implementation Of C3}
+The snippets on previous pages have been reformatted for visual purposes. If these are not readable, we kindly direct you to the source code, which is indented by the default scheme standards.
+\lstinputlisting{merge.ss}
+\pagebreak
+\section*{Full MYCLASS Definition}
+\begin{lstlisting}[escapeinside=||]
+(define-macro MYCLASS
+  (lambda (superlist . defs)
+    `(letrec
+         ((<<SUPERS>> (flattenSuperList ,superlist))
+          (<<METHODS>> (<<TABLE>>))
+          (<<VARS>> (mergeTables (mmap (|$\lambda$|(super)(super '<<COPY>>))<<SUPERS>>)))
+          (<<CLASS>>
+           (lambda (msg . args)
+             (case msg
+               ((new)
+                (let*
+                    ((context (<<VARS>> 'instantiate))
+                     (self 
+                      (lambda (msg . args)
+                        (<<CLASS>> '<<EVAL>> context msg args))))
+                  (context 'replace '<<SELF>> self)
+                  self))
+               ((<<EVAL>>)
+                (let*
+                    ((context (car args))
+                     (msg (cadr args))
+                     (args (caddr args))
+                     (entry (<<METHODS>> 'get msg)))
+                  (if entry
+                      (apply entry (cons context args))
+                      (evalWithFirstSuper <<SUPERS>> context msg args)
+                      )))
+               ((<<SINGLETONEVAL>>)
+                (let*
+                    ((context (car args))
+                     (msg (cadr args))
+                     (args (caddr args))
+                     (entry (<<METHODS>> 'get msg)))
+                  (if entry
+                      (apply entry (cons context args))
+                      '<<METHODNOTFOUND>>
+                      )))
+               ((<<COPY>>)(<<VARS>> 'copy))
+               ((<<GETVARS>>) <<VARS>>)
+               ((<<GETSUPERS>>) <<SUPERS>>)
+               (else
+                (error "invalid class message " msg))))))
+       ,@defs
+       <<CLASS>>)))
+\end{lstlisting}
+\end{document}

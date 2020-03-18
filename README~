@@ -1,0 +1,5 @@
+|test logger|
+test := Test new.
+logger := test logger.
+logger loggingLevel: (10).
+test run.

@@ -1,0 +1,13 @@
+"To run the script just type the following.
+ The loggingLevel indicates what you want to see,
+ all 'normal' messages have level 10
+ all 'error' messages have level 0.
+ All messages with an importance lower than the set
+ level will be printed.
+"
+
+|test logger|
+test := Test new.
+logger := test logger.
+logger loggingLevel: (10).
+test run.
